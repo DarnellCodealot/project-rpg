@@ -2,12 +2,14 @@
 
 class Player : public Sprite{
     public:
-    Player(std::string name, RenderWindow window, Vector2 pos, float scaler = 1.0f);
+    bool interacting=false;
+    Player(std::string name, RenderWindow window, vector2 pos, float scaler = 1.0f);
     void interact(std::map<int, std::map<int, std::string>> interactible, RenderWindow window, int ms);//this function gets the text that should be drawn and prepares it to be drawn
     //public part of the stuff that deals with player movement
+    bool frontObject(std::map<int, std::map<int, std::string>> interactible, RenderWindow window);
     void Travel(int x, int y, uint32_t m, std::map<int, std::map<int, bool>> mapBounds);//basically used when you have the initiative of moving to a tile
     void Move();//and this is used because travel is only executed when you press a button but after you press that button the player has to move 32 pixels without needing you to press anything
-    Vector2 GetPos();//if you don't get what this does I bet you won't get it even if I explain it here
+    vector2 GetPos();//if you don't get what this does I bet you won't get it even if I explain it here
 
     //public part of the stuff that deals with player animation
     void Draw(RenderWindow wind);
