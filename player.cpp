@@ -17,7 +17,32 @@ void Player::interact(std::map<int, std::map<int, std::string>> interactible, Re
 {
     if (!moving)
     {
-window.renderText("asdsad\nasSAD", 255, 255, 255, 100 + 1 * window.getFontWidth(), 100);
+        std::string intertext = interactible[this->pos.y / this->pos.h + this->ny][this->pos.x / this->pos.w + this->nx];
+
+        if (intertext != this->lasttext)
+        {
+            this->textindex = 0;
+            this->lasttext = intertext;
+            this->ttp = std::chrono::steady_clock::now();
+        }
+        else if (intertext.size() > 0)
+        {
+            for (int i = 0; i <= this->textindex; i++)
+            {
+                char letter = intertext[i];
+                std::string finaltext(1, letter);
+                window.renderText("asdsad\nasSAD", 255, 255, 255, 100 + i * window.getFontWidth(), 100);
+            }
+            long long duration = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->ttp).count();
+            if (duration >= ms)
+            {
+                if (this->textindex < intertext.size() - 1)
+                {
+                    this->textindex++;
+                }
+                this->ttp = std::chrono::steady_clock::now();
+            }
+        }
     }
 }
 
