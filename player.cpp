@@ -31,7 +31,7 @@ void Player::interact(std::map<int, std::map<int, std::string>> interactible, Re
             {
                 char letter = intertext[i];
                 std::string finaltext(1, letter);
-                window.renderText("asdsad\nasSAD", 255, 255, 255, 100 + i * window.getFontWidth(), 100);
+                window.renderText(finaltext, 255, 255, 255, 100 + i * window.getFontWidth(), 100);
             }
             long long duration = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->ttp).count();
             if (duration >= ms)
