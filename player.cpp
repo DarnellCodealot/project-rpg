@@ -1,6 +1,6 @@
-#include "sldlib.hpp"
+#include "sdlLib.hpp"
 
-Player::Player(std::string name, RenderWindow window, Vector2 pos, float scaler) : Sprite(name, window), moving(false), shouldmove(false), textindex(0)
+Player::Player(std::string name, RenderWindow window, vector2 pos, float scaler) : Sprite(name, window), moving(false), shouldmove(false), textindex(0)
 {
     this->pos.x = pos.x;
     this->pos.y = pos.y;
@@ -17,38 +17,25 @@ void Player::interact(std::map<int, std::map<int, std::string>> interactible, Re
 {
     if (!moving)
     {
-        std::string intertext = interactible[this->pos.y / this->pos.h + this->ny][this->pos.x / this->pos.w + this->nx];
-
-        if (intertext != this->lasttext)
-        {
-            this->textindex = 0;
-            this->lasttext = intertext;
-            this->ttp = std::chrono::steady_clock::now();
-        }
-        else if (intertext.size() > 0)
-        {
-            for (int i = 0; i <= this->textindex; i++)
-            {
-                char letter = intertext[i];
-                std::string finaltext(1, letter);
-                window.renderText(finaltext, 255, 255, 255, 100 + i * window.getFontWidth(), 100);
-            }
-            long long duration = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->ttp).count();
-            if (duration >= ms)
-            {
-                if (this->textindex < intertext.size() - 1)
-                {
-                    this->textindex++;
-                }
-                this->ttp = std::chrono::steady_clock::now();
-            }
-        }
+window.renderText("asdsad\nasSAD", 255, 255, 255, 100 + 1 * window.getFontWidth(), 100);
     }
 }
 
-Vector2 Player::GetPos()
+bool Player::frontObject(std::map<int, std::map<int, std::string>> interactible, RenderWindow window)
 {
-    return Vector2(this->pos.x, this->pos.y);
+    if (interactible[this->pos.y / this->pos.h + this->ny][this->pos.x / this->pos.w + this->nx] == "")
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+vector2 Player::GetPos()
+{
+    return vector2(this->pos.x, this->pos.y);
 }
 
 void Player::Move()
